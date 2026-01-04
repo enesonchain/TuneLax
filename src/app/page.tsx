@@ -135,9 +135,18 @@ export default function Home() {
   // Logo scales from 1 to 0.25 (navbar size)
   const logoScale = 1 - easedProgress * 0.75;
 
-  // Logo moves up and slightly left to navbar position
-  const logoTranslateY = -easedProgress * windowSize.height * 0.45;
-  const logoTranslateX = -easedProgress * windowSize.width * 0.35;
+  // Calculate exact translation to navbar position
+  // Logo starts at center: (50vw - 60px, 50vh - 60px) due to margin offset
+  // Target navbar position: approximately (56px, 32px)
+  const navbarLogoX = 56; // Navbar logo X position (px from left)
+  const navbarLogoY = 32; // Navbar logo Y position (middle of navbar)
+
+  // Calculate how far we need to move from center to navbar
+  const startX = windowSize.width / 2 - 60;
+  const startY = windowSize.height / 2 - 60;
+
+  const logoTranslateX = easedProgress * (navbarLogoX - startX);
+  const logoTranslateY = easedProgress * (navbarLogoY - startY);
 
   // Logo opacity fades as it reaches navbar
   const heroLogoOpacity = 1 - easedProgress * 0.3;
